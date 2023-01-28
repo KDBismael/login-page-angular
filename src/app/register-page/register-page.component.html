@@ -1,0 +1,10 @@
+<form (ngSubmit)="onSubmit()" class="formCard">
+  <div class="form-group">
+    <input *ngIf="!login" [(ngModel)]="credetials.firstName" type="text"  name="first name" placeholder="First Name">
+    <input *ngIf="!login" [(ngModel)]="credetials.lastName" type="text"  name="last name" placeholder="Last Name">
+    <input [(ngModel)]="credetials.email" type="email"  name="email" placeholder="Email Address">
+    <input [(ngModel)]="credetials.password" type="password"  name="password" placeholder="password">
+  </div>
+  <button type="submit" class="btn btn-primary">{{login?'SignUp to try your free trial':'SignIn to try your free trial'}}</button>
+  <p> <span class="singnup-btn"(click)="changePage()">{{login?'SignIn':'SignUp'}}</span> | By clicking the button, you are agreeing to our <span class="red">Terms and Services</span></p>
+</form>
