@@ -1,7 +1,7 @@
 import { Component,OnInit,Input } from '@angular/core';
-import { AppServiceService } from '../app-service.service';
-import { LocalService } from '../local.service';
-import { FormsModule } from '@angular/forms';
+import { AppServiceService } from '../services/http service/app-service.service';
+import { LocalService } from '../services/local service/local.service';
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-register-page',
@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./register-page.component.css'],
 })
 export class RegisterPageComponent {
-  constructor(private service :AppServiceService,private local: LocalService){}
+  constructor(private service :AppServiceService,private local: LocalService,private router:Router){}
   @Input() login!:boolean;
   credetials={
     firstName:'',
@@ -24,11 +24,16 @@ export class RegisterPageComponent {
   }
   onSubmit():void{
     if(!this.login){
-      this.service.register(this.credetials).subscribe(data =>{console.log(data);})
+      this.service.register(this.credetials).subscribe(data =>{
+        this.local.setLocalStorage(data)
+        this.router.navigate(['/protected'],data)
+      })
+
+      this.router.navigate(['/protected'])
     }else{
       this.service.login(this.credetials).subscribe(data =>{
         this.local.setLocalStorage(data)
-        alert('thanks,you are logged in, your data: '+ data);
+        this.router.navigate(['/protected'])
         this.credetials.email=''
         this.credetials.password=''
       })
