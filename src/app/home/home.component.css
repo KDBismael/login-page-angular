@@ -10,6 +10,13 @@
   grid-template-columns: 1fr 1fr;
 }
 
+@media (max-width:767px){
+  .app{
+    grid-template-columns: 1fr;
+    height: 100%;
+  }
+}
+
 .app .textContainer,.app .formContainer{
   padding: 30px;
   display: grid;
